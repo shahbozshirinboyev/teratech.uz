@@ -24,6 +24,7 @@ const SkillsSection = () => (
         ))}
       </div>
     </div>
+    <span>sdfsdfjhk</span>
   </section>
 );
 

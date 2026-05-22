@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X, Moon, Sun } from "lucide-react";
 
-const navLinks = ["About", "Courses", "Curriculum", "Pricing", "Blog", "FAQ"];
+const navLinks = [ "Curriculum","Pricing", "Blog", "FAQ"];
 // const navLinks = ["About", "Courses", "Curriculum", "Pricing", "Blog", "FAQ"];
 
 const Navbar = () => {
@@ -70,7 +70,7 @@ const Navbar = () => {
             {isDark ? <Sun size={18} /> : <Moon size={18} />}
           </button>
           <a href="#pricing" className="glow-button text-sm">
-            Enroll Now
+            +998 87 888 22 44
           </a>
         </div>
 

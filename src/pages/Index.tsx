@@ -22,16 +22,16 @@ const Index = () => {
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
       <HeroSection onOpenModal={() => setModalOpen(true)} />
-      <AboutSection />
-      <SkillsSection />
-      <ProgramsSection />
+      {/* <AboutSection /> */}
+      {/* <SkillsSection /> */}
+      {/* <ProgramsSection /> */}
       <CurriculumSection />
       <PricingSection />
-      <DashboardPreview />
-      <TestimonialsSection />
-      <BlogSection />
+      {/* <DashboardPreview /> */}
+      {/* <TestimonialsSection /> */}
+      {/* <BlogSection /> */}
       <FAQSection />
-      <CTASection />
+      {/* <CTASection /> */}
       <DownloadButton/>
       <FooterSection />
       <LeadCaptureModal open={modalOpen} onClose={() => setModalOpen(false)} />
