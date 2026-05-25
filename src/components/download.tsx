@@ -6,7 +6,7 @@ export default function DownloadButton() {
       <a href="https://themewagon.com/themes/cybersec/" target="_blank"
         className="border-2 border-accent bg-transparent rounded-full px-4 inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm disabled:pointer-events-none disabled:opacity-50  focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-primary/90 h-10 has-[>svg]:px-4 bg-gradient-to-r from-primary to-accent text-background font-semibold hover:shadow-lg  cursor-pointer"
       >
-        Download Now
+        Telegram
       </a>
     </div>
   )

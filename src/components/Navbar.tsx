@@ -5,7 +5,7 @@ const navLinks = [
   { name: "Nega biz?", link: "Curriculum" },
   { name: "Narxlar", link: "Pricing" },
   { name: "Savol-Javob", link: "FAQ" },
-  { name: "Aloqa", link: "FAQ" },
+  // { name: "Aloqa", link: "FAQ" },
 ];
 
 const Navbar = () => {
