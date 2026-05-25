@@ -21,12 +21,12 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
-      <HeroSection onOpenModal={() => setModalOpen(true)} />
+      <HeroSection />
       {/* <AboutSection /> */}
       {/* <SkillsSection /> */}
       {/* <ProgramsSection /> */}
       <CurriculumSection />
-      <PricingSection />
+      <PricingSection onOpenModal={() => setModalOpen(true)} />
       {/* <DashboardPreview /> */}
       {/* <TestimonialsSection /> */}
       {/* <BlogSection /> */}
