@@ -23,7 +23,7 @@ const LeadCaptureModal = ({ open, onClose }: LeadCaptureModalProps) => {
           <X size={20} />
         </button>
         <h3 className="text-2xl font-bold mb-2">
-          Get Free Cyber Security <span className="glow-text">Starter Kit</span>
+          Get Free Cyber Security123 <span className="glow-text">Starter Kit</span>
         </h3>
         <p className="text-sm text-muted-foreground mb-6">
           Download our free guide to kickstart your cybersecurity journey.

@@ -1,12 +1,7 @@
 import heroBg from "@/assets/hero-bg.jpg";
 
-interface HeroSectionProps {
-  onOpenModal?: () => void;
-}
-
-const HeroSection = ({ onOpenModal }: HeroSectionProps) => (
+const HeroSection = () => (
   <section className="relative min-h-screen flex items-center justify-center overflow-hidden section-padding pt-32">
-    {/* Background */}
     <div className="absolute inset-0">
       <img src={heroBg} alt="" className="w-full h-full  opacity-80" />
       <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/50 to-background" />
@@ -29,15 +24,7 @@ const HeroSection = ({ onOpenModal }: HeroSectionProps) => (
         <a href="#pricing" className="glow-button text-lg px-8 py-4">
           Narxlarni ko'rish
         </a>
-        <button onClick={onOpenModal} className="px-8 py-4 rounded-lg border border-primary/30 text-foreground font-semibold hover:bg-primary/10 transition-all duration-300" >
-          Ariza qoldirish
-        </button>
       </div>
-      {/* <div className="flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
-        <span>1000+ Xaridorlar</span>
-        <span>4.8⭐</span>
-        <span>Certified Instructor</span>
-      </div> */}
     </div>
   </section>
 );

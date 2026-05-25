@@ -21,7 +21,11 @@ const plans = [
   },
 ];
 
-const PricingSection = () => (
+interface PricingSectionPage {
+  onOpenModal ?: () => void;
+}
+
+const PricingSection = ({ onOpenModal }: PricingSectionPage) => (
   <section id="pricing" className="section-padding gradient-bg">
     <div className="container mx-auto">
       <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
@@ -50,8 +54,9 @@ const PricingSection = () => (
                 </li>
               ))}
             </ul>
-            <a
-              href="#"
+
+            <button
+              onClick={onOpenModal}
               className={`text-center rounded-lg py-3 font-semibold transition-all duration-300 ${
                 p.popular
                   ? "glow-button"
@@ -59,7 +64,8 @@ const PricingSection = () => (
               }`}
             >
               Sotib olish
-            </a>
+            </button>
+
           </div>
         ))}
       </div>

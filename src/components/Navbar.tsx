@@ -1,8 +1,12 @@
 import { useState, useEffect } from "react";
 import { Menu, X, Moon, Sun } from "lucide-react";
 
-const navLinks = [ "Curriculum","Pricing", "Blog", "FAQ"];
-// const navLinks = ["About", "Courses", "Curriculum", "Pricing", "Blog", "FAQ"];
+const navLinks = [
+  { name: "Nega biz?", link: "Curriculum" },
+  { name: "Narxlar", link: "Pricing" },
+  { name: "Savol-Javob", link: "FAQ" },
+  { name: "Aloqa", link: "FAQ" },
+];
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -53,11 +57,11 @@ const Navbar = () => {
         <div className="hidden md:flex items-center gap-6">
           {navLinks.map((l) => (
             <a
-              key={l}
-              href={`#${l.toLowerCase()}`}
+              key={l.link}
+              href={`#${l.link.toLowerCase()}`}
               className="text-sm text-muted-foreground hover:text-primary transition-colors"
             >
-              {l}
+              {l.name}
             </a>
           ))}
         </div>
@@ -69,9 +73,9 @@ const Navbar = () => {
           >
             {isDark ? <Sun size={18} /> : <Moon size={18} />}
           </button>
-          <a href="#pricing" className="glow-button text-sm">
-            +998 87 888 22 44
-          </a>
+
+          <a href="tel:+998878882244" className="glow-button text-sm">+998 87 888 22 44</a>
+
         </div>
 
         {/* Mobile */}
@@ -89,17 +93,17 @@ const Navbar = () => {
         <div className="md:hidden glass-card mt-2 mx-4 p-4 rounded-xl">
           {navLinks.map((l) => (
             <a
-              key={l}
-              href={`#${l.toLowerCase()}`}
+              key={l.link}
+              href={`#${l.link.toLowerCase()}`}
               onClick={() => setIsOpen(false)}
               className="block py-2 text-muted-foreground hover:text-primary transition-colors"
             >
-              {l}
+              {l.name}
             </a>
           ))}
-          <a href="#pricing" className="glow-button block text-center mt-3 text-sm">
-            Enroll Now
-          </a>
+
+          <a href="tel:+998878882244" className="glow-button block text-center mt-3 text-sm">+998 87 888 22 44</a>
+
         </div>
       )}
     </nav>
