@@ -35,14 +35,6 @@ const Index = () => {
       <DownloadButton/>
       <FooterSection />
       <LeadCaptureModal open={modalOpen} onClose={() => setModalOpen(false)} />
-
-      {/* Floating CTA for modal */}
-      <button
-        onClick={() => setModalOpen(true)}
-        className="fixed bottom-6 right-6 z-50 glow-button rounded-full px-5 py-3 text-sm font-bold md:hidden"
-      >
-        Free Kit 🎁
-      </button>
     </div>
   );
 };

@@ -175,10 +175,10 @@ const LeadCaptureModal = ({ open, onClose, selectedPlan }: LeadCaptureModalProps
         /* dropdown list */
         .lcm-dropdown {
           position: absolute; top: calc(100% + 6px); left: 0; right: 0;
-          background: #13101f;
-          border: 1px solid hsl(var(--primary) / 0.4);
+          background: hsl(var(--popover) / 0.98);
+          border: 1px solid hsl(var(--primary) / 0.28);
           border-radius: 10px; overflow: hidden; z-index: 999;
-          box-shadow: 0 16px 40px rgba(0,0,0,0.75);
+          box-shadow: 0 16px 36px hsl(var(--foreground) / 0.14);
           animation: lcm-dd-in 0.16s ease forwards;
         }
         @keyframes lcm-dd-in {
@@ -187,21 +187,21 @@ const LeadCaptureModal = ({ open, onClose, selectedPlan }: LeadCaptureModalProps
         }
         .lcm-option {
           padding: 11px 16px; font-size: 14px;
-          color: var(--muted-foreground, rgba(255,255,255,0.72));
+          color: hsl(var(--muted-foreground));
           cursor: pointer;
-          border-bottom: 1px solid hsl(var(--primary) / 0.08);
+          border-bottom: 1px solid hsl(var(--border) / 0.75);
           transition: background 0.13s, color 0.13s;
         }
         .lcm-option:last-child { border-bottom: none; }
         /* hover: pricing'dagi hover:bg-primary/10 */
         .lcm-option:hover {
-          background: hsl(var(--primary) / 0.15);
-          color: var(--foreground);
+          background: hsl(var(--primary) / 0.1);
+          color: hsl(var(--foreground));
         }
         /* selected: bg-primary uslubida */
         .lcm-option.selected {
-          background: hsl(var(--primary) / 0.2);
-          color: var(--primary);
+          background: hsl(var(--primary) / 0.14);
+          color: hsl(var(--primary));
           font-weight: 700;
         }
 
