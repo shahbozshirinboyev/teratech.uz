@@ -17,16 +17,18 @@ const PURPOSE_OPTIONS = [
 ];
 
 function formatPhone(raw: string): string {
-  const digits = raw.replace(/\D/g, "").slice(0, 12);
-  if (!digits) return "";
-  if (digits.length <= 3) return "+" + digits;
-  let out = "+" + digits.slice(0, 3);
-  if (digits.length <= 5) return out + " (" + digits.slice(3);
-  out += " (" + digits.slice(3, 5) + ") ";
-  if (digits.length <= 8) return out + digits.slice(5);
-  out += digits.slice(5, 8) + "-";
-  if (digits.length <= 10) return out + digits.slice(8);
-  return out + digits.slice(8, 10) + "-" + digits.slice(10, 12);
+  let digits = raw.replace(/\D/g, "");
+  if (digits.startsWith("998")) digits = digits.slice(3);
+  digits = digits.slice(0, 9);
+
+  let out = "+998";
+  if (!digits) return out + " ";
+  if (digits.length <= 2) return out + " (" + digits;
+  out += " (" + digits.slice(0, 2) + ") ";
+  if (digits.length <= 5) return out + digits.slice(2);
+  out += digits.slice(2, 5) + "-";
+  if (digits.length <= 7) return out + digits.slice(5);
+  return out + digits.slice(5, 7) + "-" + digits.slice(7, 9);
 }
 
 const LeadCaptureModal = ({ open, onClose, selectedPlan }: LeadCaptureModalProps) => {
@@ -75,11 +77,11 @@ const LeadCaptureModal = ({ open, onClose, selectedPlan }: LeadCaptureModalProps
   }, []);
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPhone(formatPhone(e.target.value.replace(/\D/g, "")));
+    setPhone(formatPhone(e.target.value));
   };
 
   const phoneDigits = phone.replace(/\D/g, "");
-  const isValid = name.trim().length > 1 && phoneDigits.length === 12 && purpose !== "";
+  const isValid = name.trim().length > 1 && phoneDigits.startsWith("998") && phoneDigits.length === 12 && purpose !== "";
 
   const handleSubmit = async () => {
     if (!isValid || loading) return;
@@ -112,30 +114,30 @@ const LeadCaptureModal = ({ open, onClose, selectedPlan }: LeadCaptureModalProps
 
         .lcm-field-icon {
           position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
-          color: var(--muted-foreground, rgba(255,255,255,0.4));
+          color: hsl(var(--muted-foreground) / 0.78);
           pointer-events: none; transition: color 0.2s;
         }
-        .lcm-field:focus-within .lcm-field-icon { color: var(--primary); }
+        .lcm-field:focus-within .lcm-field-icon { color: hsl(var(--primary) / 0.9); }
 
         .lcm-input {
           width: 100%; box-sizing: border-box;
           padding: 13px 14px 13px 42px;
           border-radius: 10px;
           /* Pricing sectiondagi border-primary/30 dan kuchliroq — /50 */
-          border: 1.5px solid hsl(var(--primary) / 0.5);
-          background: hsl(var(--primary) / 0.06);
+          border: 1.5px solid hsl(var(--primary) / 0.28);
+          background: hsl(var(--background) / 0.34);
           color: var(--foreground);
           font-family: 'Onest', sans-serif;
           font-size: 14.5px;
           outline: none;
           transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
         }
-        .lcm-input::placeholder { color: var(--muted-foreground, rgba(255,255,255,0.35)); }
+        .lcm-input::placeholder { color: hsl(var(--muted-foreground) / 0.68); }
         .lcm-input:focus {
-          border-color: var(--primary);
-          background: hsl(var(--primary) / 0.12);
+          border-color: hsl(var(--primary) / 0.7);
+          background: hsl(var(--background) / 0.48);
           /* glow-button dan ilhom — primary shadow */
-          box-shadow: 0 0 0 3px hsl(var(--primary) / 0.25);
+          box-shadow: 0 0 0 3px hsl(var(--primary) / 0.12);
         }
 
         /* ── dropdown trigger ── */
@@ -143,8 +145,8 @@ const LeadCaptureModal = ({ open, onClose, selectedPlan }: LeadCaptureModalProps
           width: 100%; box-sizing: border-box;
           padding: 13px 42px 13px 42px;
           border-radius: 10px;
-          border: 1.5px solid hsl(var(--primary) / 0.5);
-          background: hsl(var(--primary) / 0.06);
+          border: 1.5px solid hsl(var(--primary) / 0.28);
+          background: hsl(var(--background) / 0.34);
           color: var(--foreground);
           font-family: 'Onest', sans-serif;
           font-size: 14.5px;
@@ -152,22 +154,22 @@ const LeadCaptureModal = ({ open, onClose, selectedPlan }: LeadCaptureModalProps
           display: flex; align-items: center;
           transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
         }
-        .lcm-select-btn.placeholder { color: var(--muted-foreground, rgba(255,255,255,0.35)); }
+        .lcm-select-btn.placeholder { color: hsl(var(--muted-foreground) / 0.68); }
         .lcm-select-btn.open, .lcm-select-btn:focus {
-          border-color: var(--primary);
-          background: hsl(var(--primary) / 0.12);
-          box-shadow: 0 0 0 3px hsl(var(--primary) / 0.25);
+          border-color: hsl(var(--primary) / 0.7);
+          background: hsl(var(--background) / 0.48);
+          box-shadow: 0 0 0 3px hsl(var(--primary) / 0.12);
         }
 
         .lcm-chevron {
           position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
-          color: var(--muted-foreground, rgba(255,255,255,0.4));
+          color: hsl(var(--muted-foreground) / 0.78);
           pointer-events: none;
           transition: transform 0.22s ease, color 0.2s;
         }
         .lcm-chevron.open {
           transform: translateY(-50%) rotate(180deg);
-          color: var(--primary);
+          color: hsl(var(--primary) / 0.9);
         }
 
         /* dropdown list */
@@ -214,8 +216,8 @@ const LeadCaptureModal = ({ open, onClose, selectedPlan }: LeadCaptureModalProps
           cursor: pointer;
           display: flex; align-items: center; justify-content: center; gap: 8px;
           /* glow-button shadow */
-          box-shadow: 0 0 20px hsl(var(--primary) / 0.5), 0 4px 12px hsl(var(--primary) / 0.3);
-          transition: transform 0.15s, box-shadow 0.2s, opacity 0.2s;
+          box-shadow: 0 0 14px hsl(var(--primary) / 0.28), 0 4px 12px hsl(var(--primary) / 0.22);
+          transition: transform 0.15s, box-shadow 0.2s, opacity 0.2s, background 0.2s, color 0.2s;
           overflow: hidden;
         }
         .lcm-btn::before {
@@ -225,10 +227,16 @@ const LeadCaptureModal = ({ open, onClose, selectedPlan }: LeadCaptureModalProps
         }
         .lcm-btn:hover:not(:disabled) {
           transform: translateY(-2px);
-          box-shadow: 0 0 28px hsl(var(--primary) / 0.7), 0 8px 20px hsl(var(--primary) / 0.4);
+          box-shadow: 0 0 20px hsl(var(--primary) / 0.38), 0 8px 18px hsl(var(--primary) / 0.28);
         }
         .lcm-btn:active:not(:disabled) { transform: translateY(0); }
-        .lcm-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+        .lcm-btn:disabled {
+          opacity: 1;
+          cursor: not-allowed;
+          background: hsl(var(--secondary) / 0.78);
+          color: hsl(var(--muted-foreground) / 0.82);
+          box-shadow: none;
+        }
 
         /* spinner */
         @keyframes lcm-spin { to { transform: rotate(360deg) } }
@@ -357,9 +365,10 @@ const LeadCaptureModal = ({ open, onClose, selectedPlan }: LeadCaptureModalProps
                       <input
                         className="lcm-input"
                         type="tel"
-                        placeholder="+998 (XX) XXX-XX-XX"
+                        placeholder="+998 dan keyin raqam"
                         value={phone}
                         onChange={handlePhoneChange}
+                        onFocus={() => { if (!phone) setPhone("+998 "); }}
                         maxLength={19}
                       />
                       <span className="lcm-field-icon"><Phone size={16} /></span>
