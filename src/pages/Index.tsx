@@ -33,7 +33,7 @@ const Index = () => {
       <FAQSection />
       {/* <CTASection /> */}
       <DownloadButton/>
-      {/* <FooterSection /> */}
+      <FooterSection />
       <LeadCaptureModal open={modalOpen} onClose={() => setModalOpen(false)} />
 
       {/* Floating CTA for modal */}

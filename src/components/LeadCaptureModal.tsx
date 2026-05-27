@@ -11,7 +11,7 @@ const PURPOSE_OPTIONS = [
   "Game club",
   "Ofis",
   "Uy uchun",
-  "Maktab / ta'lim",
+  "Maktab / Ta'lim",
   "Grafik dizayn",
   "Boshqa",
 ];
