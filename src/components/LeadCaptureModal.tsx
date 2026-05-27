@@ -97,7 +97,7 @@ const LeadCaptureModal = ({ open, onClose, selectedPlan }: LeadCaptureModalProps
     setSubmitError("");
 
     try {
-      const response = await fetch("/api/send-lead", {
+      const response = await fetch("./send-lead.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

@@ -13,7 +13,7 @@ const telegramLeadPlugin = (): Plugin => ({
   configureServer(server) {
     const env = loadEnv("", process.cwd(), "");
 
-    server.middlewares.use("/api/send-lead", async (req, res) => {
+    const leadHandler = async (req: any, res: any) => {
       if (req.method !== "POST") {
         res.statusCode = 405;
         res.setHeader("Content-Type", "application/json");
@@ -85,7 +85,10 @@ const telegramLeadPlugin = (): Plugin => ({
           server.config.logger.error(error instanceof Error ? error.message : String(error));
         }
       });
-    });
+    };
+
+    server.middlewares.use("/api/send-lead", leadHandler);
+    server.middlewares.use("/send-lead.php", leadHandler);
   },
 });
 
