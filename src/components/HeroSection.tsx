@@ -2,9 +2,9 @@ import heroBg from "@/assets/hero-bg.jpg";
 
 const HeroSection = () => (
   <section className="relative min-h-screen flex items-center justify-center overflow-hidden section-padding pt-32">
-    <div className="absolute inset-0">
-      <img src={heroBg} alt="" className="w-full h-full  opacity-80" />
-      <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/50 to-background" />
+    <div className="absolute inset-0 bg-black/40">
+      <img src={heroBg} alt="" className="w-full h-full object-cover opacity-90" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background/10 via-background/20 to-background/90" />
     </div>
     <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-primary/10 blur-[120px] animate-pulse-glow" />
 
@@ -12,7 +12,7 @@ const HeroSection = () => (
       <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mb-6">
         <span>TeraTech</span>
       </h1>
-      <h1 className="text-3xl md:text-5xl font-extrabold leading-tight mb-6">
+      <h1 className="text-2xl md:text-4xl lg:text-5xl font-extrabold leading-tight mb-6">
         <span className="glow-text">O'zbekistonda birinchi qo'l</span>
         <br />
         <span className="glow-text">[IMPORTYOR]</span>

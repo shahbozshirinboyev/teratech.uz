@@ -44,7 +44,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 rounded-none ${
         scrolled ? "glass-card border-b py-3" : "py-5 bg-transparent"
       }`}
     >
@@ -59,7 +59,7 @@ const Navbar = () => {
             <a
               key={l.link}
               href={`#${l.link.toLowerCase()}`}
-              className="text-sm text-muted-foreground hover:text-primary transition-colors"
+              className="text-sm hover:text-primary transition-colors"
             >
               {l.name}
             </a>
@@ -69,7 +69,7 @@ const Navbar = () => {
         <div className="hidden md:flex items-center gap-3">
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-lg text-muted-foreground hover:text-foreground transition-colors"
+            className="p-2 rounded-lg hover:text-foreground transition-colors"
           >
             {isDark ? <Sun size={18} /> : <Moon size={18} />}
           </button>
