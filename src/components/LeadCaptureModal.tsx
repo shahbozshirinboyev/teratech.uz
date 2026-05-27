@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import { X, User, Phone, ChevronDown, ArrowRight, CheckCircle } from "lucide-react";
+import type { PricingPlan } from "@/components/PricingSection";
 
 interface LeadCaptureModalProps {
   open: boolean;
   onClose: () => void;
-  selectedPlan?: string;
+  selectedPlan?: PricingPlan | null;
 }
 
 const PURPOSE_OPTIONS = [
@@ -38,6 +39,7 @@ const LeadCaptureModal = ({ open, onClose, selectedPlan }: LeadCaptureModalProps
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [submitError, setSubmitError] = useState("");
   const [visible, setVisible] = useState(false);
   const firstInputRef = useRef<HTMLInputElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -51,6 +53,7 @@ const LeadCaptureModal = ({ open, onClose, selectedPlan }: LeadCaptureModalProps
       const t = setTimeout(() => {
         setSubmitted(false);
         setName(""); setPhone(""); setPurpose("");
+        setSubmitError("");
         setDropdownOpen(false);
       }, 300);
       return () => clearTimeout(t);
@@ -86,9 +89,30 @@ const LeadCaptureModal = ({ open, onClose, selectedPlan }: LeadCaptureModalProps
   const handleSubmit = async () => {
     if (!isValid || loading) return;
     setLoading(true);
-    await new Promise(r => setTimeout(r, 1200));
-    setLoading(false);
-    setSubmitted(true);
+    setSubmitError("");
+
+    try {
+      const response = await fetch("/api/send-lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: name.trim(),
+          phone,
+          purpose,
+          plan: selectedPlan,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Telegramga yuborishda xatolik yuz berdi");
+      }
+
+      setSubmitted(true);
+    } catch (error) {
+      setSubmitError(error instanceof Error ? error.message : "Yuborishda xatolik yuz berdi");
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (!open) return null;
@@ -328,12 +352,6 @@ const LeadCaptureModal = ({ open, onClose, selectedPlan }: LeadCaptureModalProps
               <>
                 {/* Header */}
                 <div>
-                  {selectedPlan && (
-                    <div className="lcm-badge" style={{ marginBottom: 12 }}>
-                      <span className="lcm-badge-dot" />
-                      {selectedPlan}
-                    </div>
-                  )}
                   <h3 className="text-2xl font-bold" style={{ color: "var(--foreground)" }}>
                     Buyurtma berish
                   </h3>
@@ -421,6 +439,11 @@ const LeadCaptureModal = ({ open, onClose, selectedPlan }: LeadCaptureModalProps
                       : <><span>Yuborish</span><ArrowRight size={17} /></>
                     }
                   </button>
+                  {submitError && (
+                    <p style={{ color: "#fca5a5", fontSize: 12.5, textAlign: "center", margin: 0 }}>
+                      {submitError}
+                    </p>
+                  )}
                 </div>
 
                 <p style={{ color: "var(--muted-foreground)", fontSize: 12, textAlign: "center", marginTop: 16 }}>

@@ -1,6 +1,13 @@
 import { Check } from "lucide-react";
 
-const plans = [
+export type PricingPlan = {
+  name: string;
+  price: string;
+  features: string[];
+  popular: boolean;
+};
+
+const plans: PricingPlan[] = [
   {
     name: "Arzon",
     price: "2 115 000 so'm",
@@ -22,7 +29,7 @@ const plans = [
 ];
 
 interface PricingSectionPage {
-  onOpenModal ?: () => void;
+  onOpenModal?: (plan: PricingPlan) => void;
 }
 
 const PricingSection = ({ onOpenModal }: PricingSectionPage) => (
@@ -40,7 +47,7 @@ const PricingSection = ({ onOpenModal }: PricingSectionPage) => (
             }`}
           >
             {p.popular && (
-              <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-xs font-bold px-4 py-1 rounded-full">
+              <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-center text-primary-foreground text-xs font-bold px-4 py-1 rounded-full">
                 Eng ko'p sotiladigan
               </span>
             )}
@@ -56,7 +63,7 @@ const PricingSection = ({ onOpenModal }: PricingSectionPage) => (
             </ul>
 
             <button
-              onClick={onOpenModal}
+              onClick={() => onOpenModal?.(p)}
               className={`text-center rounded-lg py-3 font-semibold transition-all duration-300 ${
                 p.popular
                   ? "glow-button"

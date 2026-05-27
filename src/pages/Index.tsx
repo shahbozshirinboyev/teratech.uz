@@ -5,7 +5,7 @@ import AboutSection from "@/components/AboutSection";
 import SkillsSection from "@/components/SkillsSection";
 import ProgramsSection from "@/components/ProgramsSection";
 import CurriculumSection from "@/components/CurriculumSection";
-import PricingSection from "@/components/PricingSection";
+import PricingSection, { type PricingPlan } from "@/components/PricingSection";
 import DashboardPreview from "@/components/DashboardPreview";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import BlogSection from "@/components/BlogSection";
@@ -17,6 +17,12 @@ import DownloadButton from "@/components/download";
 
 const Index = () => {
   const [modalOpen, setModalOpen] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState<PricingPlan | null>(null);
+
+  const openLeadModal = (plan?: PricingPlan) => {
+    setSelectedPlan(plan ?? null);
+    setModalOpen(true);
+  };
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -26,7 +32,7 @@ const Index = () => {
       {/* <SkillsSection /> */}
       {/* <ProgramsSection /> */}
       <CurriculumSection />
-      <PricingSection onOpenModal={() => setModalOpen(true)} />
+      <PricingSection onOpenModal={openLeadModal} />
       {/* <DashboardPreview /> */}
       {/* <TestimonialsSection /> */}
       {/* <BlogSection /> */}
@@ -34,7 +40,7 @@ const Index = () => {
       {/* <CTASection /> */}
       <DownloadButton/>
       <FooterSection />
-      <LeadCaptureModal open={modalOpen} onClose={() => setModalOpen(false)} />
+      <LeadCaptureModal open={modalOpen} onClose={() => setModalOpen(false)} selectedPlan={selectedPlan} />
     </div>
   );
 };
