@@ -32,6 +32,11 @@ function formatPhone(raw: string): string {
   return out + digits.slice(5, 7) + "-" + digits.slice(7, 9);
 }
 
+function normalizePhone(value: string): string {
+  const digits = value.replace(/\D/g, "");
+  return digits ? `+${digits}` : "";
+}
+
 const LeadCaptureModal = ({ open, onClose, selectedPlan }: LeadCaptureModalProps) => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -97,7 +102,7 @@ const LeadCaptureModal = ({ open, onClose, selectedPlan }: LeadCaptureModalProps
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: name.trim(),
-          phone,
+          phone: normalizePhone(phone),
           purpose,
           plan: selectedPlan,
         }),
