@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "cyber-courses-landing-page",
   "main": "eslint.config.js",
+  "type": "module",
 
 "keywords": [
   "cybersecurity courses", "landing page", "Courses"],
