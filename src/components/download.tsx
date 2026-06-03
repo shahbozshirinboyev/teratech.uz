@@ -1,8 +1,10 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { useLanguage } from "@/i18n/LanguageContext"
 
 export default function DownloadButton() {
+  const { t } = useLanguage()
   const [expanded, setExpanded] = useState(false)
 
   useEffect(() => {
@@ -43,7 +45,7 @@ export default function DownloadButton() {
           </svg>
         </div>
         {/* TEXT */}
-        <span className={`whitespace-nowrap font-medium transition-all duration-500 ${expanded ? "opacity-100 ml-2" : "opacity-0 ml-0"}`}>Telegram</span>
+        <span className={`whitespace-nowrap font-medium transition-all duration-500 ${expanded ? "opacity-100 ml-2" : "opacity-0 ml-0"}`}>{t.download.label}</span>
       </a>
     </div>
   )

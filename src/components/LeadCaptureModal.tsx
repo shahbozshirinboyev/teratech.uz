@@ -1,21 +1,13 @@
 import { useState, useEffect, useRef } from "react";
 import { X, User, Phone, ChevronDown, ArrowRight, CheckCircle } from "lucide-react";
 import type { PricingPlan } from "@/components/PricingSection";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 interface LeadCaptureModalProps {
   open: boolean;
   onClose: () => void;
   selectedPlan?: PricingPlan | null;
 }
-
-const PURPOSE_OPTIONS = [
-  "Game club",
-  "Ofis",
-  "Uy uchun",
-  "Maktab / Ta'lim",
-  "Grafik dizayn",
-  "Boshqa",
-];
 
 function formatPhone(raw: string): string {
   let digits = raw.replace(/\D/g, "");
@@ -38,6 +30,7 @@ function normalizePhone(value: string): string {
 }
 
 const LeadCaptureModal = ({ open, onClose, selectedPlan }: LeadCaptureModalProps) => {
+  const { t } = useLanguage();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [purpose, setPurpose] = useState("");
@@ -109,12 +102,12 @@ const LeadCaptureModal = ({ open, onClose, selectedPlan }: LeadCaptureModalProps
       });
 
       if (!response.ok) {
-        throw new Error("Telegramga yuborishda xatolik yuz berdi");
+        throw new Error(t.modal.errorTelegram);
       }
 
       setSubmitted(true);
     } catch (error) {
-      setSubmitError(error instanceof Error ? error.message : "Yuborishda xatolik yuz berdi");
+      setSubmitError(error instanceof Error ? error.message : t.modal.errorGeneric);
     } finally {
       setLoading(false);
     }
@@ -349,7 +342,7 @@ const LeadCaptureModal = ({ open, onClose, selectedPlan }: LeadCaptureModalProps
             }}
             onClick={e => e.stopPropagation()}
           >
-            <button className="lcm-close" onClick={onClose} aria-label="Yopish">
+            <button className="lcm-close" onClick={onClose} aria-label={t.modal.close}>
               <X size={16} />
             </button>
 
@@ -358,11 +351,11 @@ const LeadCaptureModal = ({ open, onClose, selectedPlan }: LeadCaptureModalProps
                 {/* Header */}
                 <div>
                   <h3 className="text-2xl font-bold" style={{ color: "var(--foreground)" }}>
-                    Buyurtma berish
+                    {t.modal.title}
                   </h3>
                   <div className="lcm-divider" />
                   <p style={{ color: "var(--muted-foreground)", fontSize: 13.5 }}>
-                    Ma'lumotlaringizni qoldiring — biz siz bilan bog'lanamiz.
+                    {t.modal.subtitle}
                   </p>
                 </div>
 
@@ -375,7 +368,7 @@ const LeadCaptureModal = ({ open, onClose, selectedPlan }: LeadCaptureModalProps
                       ref={firstInputRef}
                       className="lcm-input"
                       type="text"
-                      placeholder="Ismingiz"
+                      placeholder={t.modal.namePlaceholder}
                       value={name}
                       onChange={e => setName(e.target.value)}
                     />
@@ -388,7 +381,7 @@ const LeadCaptureModal = ({ open, onClose, selectedPlan }: LeadCaptureModalProps
                       <input
                         className="lcm-input"
                         type="tel"
-                        placeholder="+998 dan keyin raqam"
+                        placeholder={t.modal.phonePlaceholder}
                         value={phone}
                         onChange={handlePhoneChange}
                         onFocus={() => { if (!phone) setPhone("+998 "); }}
@@ -406,7 +399,7 @@ const LeadCaptureModal = ({ open, onClose, selectedPlan }: LeadCaptureModalProps
                       onClick={() => setDropdownOpen(v => !v)}
                     >
                       <span style={{ paddingLeft: 28 }}>
-                        {purpose || "Maqsad tanlang"}
+                        {purpose || t.modal.purposePlaceholder}
                       </span>
                     </button>
                     <span className="lcm-field-icon">
@@ -420,7 +413,7 @@ const LeadCaptureModal = ({ open, onClose, selectedPlan }: LeadCaptureModalProps
                     </span>
                     {dropdownOpen && (
                       <div className="lcm-dropdown">
-                        {PURPOSE_OPTIONS.map(opt => (
+                        {t.modal.purposeOptions.map(opt => (
                           <div
                             key={opt}
                             className={`lcm-option ${purpose === opt ? "selected" : ""}`}
@@ -441,7 +434,7 @@ const LeadCaptureModal = ({ open, onClose, selectedPlan }: LeadCaptureModalProps
                   >
                     {loading
                       ? <span className="lcm-spinner" />
-                      : <><span>Yuborish</span><ArrowRight size={17} /></>
+                      : <><span>{t.modal.submit}</span><ArrowRight size={17} /></>
                     }
                   </button>
                   {submitError && (
@@ -452,7 +445,7 @@ const LeadCaptureModal = ({ open, onClose, selectedPlan }: LeadCaptureModalProps
                 </div>
 
                 <p style={{ color: "var(--muted-foreground)", fontSize: 12, textAlign: "center", marginTop: 16 }}>
-                  Ma'lumotlaringiz uchinchi shaxslarga berilmaydi.
+                  {t.modal.privacy}
                 </p>
               </>
             ) : (
@@ -461,12 +454,12 @@ const LeadCaptureModal = ({ open, onClose, selectedPlan }: LeadCaptureModalProps
                   <CheckCircle size={52} strokeWidth={1.5} />
                 </div>
                 <h3 className="text-xl font-bold" style={{ color: "var(--foreground)", marginBottom: 8 }}>
-                  Muvaffaqiyatli yuborildi!
+                  {t.modal.successTitle}
                 </h3>
                 <p style={{ color: "var(--muted-foreground)", fontSize: 14, marginBottom: 28 }}>
-                  Tez orada siz bilan bog'lanamiz.
+                  {t.modal.successSubtitle}
                 </p>
-                <button className="lcm-btn" onClick={onClose}>Yopish</button>
+                <button className="lcm-btn" onClick={onClose}>{t.modal.close}</button>
               </div>
             )}
           </div>

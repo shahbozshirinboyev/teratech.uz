@@ -1,14 +1,9 @@
 import { useState, useEffect } from "react";
-import { Menu, X, Moon, Sun } from "lucide-react";
-
-const navLinks = [
-  { name: "Nega biz?", link: "Curriculum" },
-  { name: "Narxlar", link: "Pricing" },
-  { name: "Savol-Javob", link: "FAQ" },
-  // { name: "Aloqa", link: "FAQ" },
-];
+import { Menu, X, Moon, Sun, Languages } from "lucide-react";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 const Navbar = () => {
+  const { t, lang, setLang, languages } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isDark, setIsDark] = useState(true);
@@ -42,6 +37,15 @@ const Navbar = () => {
     }
   };
 
+  // Ro'yxatdagi keyingi tilga aylanib o'tadi (2 tildan ko'p bo'lsa ham ishlaydi)
+  const cycleLang = () => {
+    const idx = languages.findIndex((l) => l.code === lang);
+    const next = languages[(idx + 1) % languages.length];
+    setLang(next.code);
+  };
+
+  const currentLabel = languages.find((l) => l.code === lang)?.label ?? lang.toUpperCase();
+
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 rounded-none ${
@@ -55,7 +59,7 @@ const Navbar = () => {
 
         {/* Desktop */}
         <div className="hidden md:flex items-center gap-6">
-          {navLinks.map((l) => (
+          {t.nav.links.map((l) => (
             <a
               key={l.link}
               href={`#${l.link.toLowerCase()}`}
@@ -68,19 +72,36 @@ const Navbar = () => {
 
         <div className="hidden md:flex items-center gap-3">
           <button
+            onClick={cycleLang}
+            className="flex items-center gap-1.5 p-2 rounded-lg hover:text-primary transition-colors"
+            aria-label="Til / Язык"
+          >
+            <Languages size={18} />
+            <span className="text-sm font-semibold">{currentLabel}</span>
+          </button>
+
+          <button
             onClick={toggleTheme}
             className="p-2 rounded-lg hover:text-foreground transition-colors"
+            aria-label="Theme"
           >
             {isDark ? <Sun size={18} /> : <Moon size={18} />}
           </button>
 
-          <a href="tel:+998878882244" className="glow-button text-sm">+998 87 888 22 44</a>
-
+          <a href="tel:+998878882244" className="glow-button text-sm">{t.nav.phone}</a>
         </div>
 
         {/* Mobile */}
         <div className="flex md:hidden items-center gap-2">
-          <button onClick={toggleTheme} className="p-2 text-muted-foreground">
+          <button
+            onClick={cycleLang}
+            className="flex items-center gap-1 p-2 text-muted-foreground"
+            aria-label="Til / Язык"
+          >
+            <Languages size={18} />
+            <span className="text-xs font-semibold">{currentLabel}</span>
+          </button>
+          <button onClick={toggleTheme} className="p-2 text-muted-foreground" aria-label="Theme">
             {isDark ? <Sun size={18} /> : <Moon size={18} />}
           </button>
           <button onClick={() => setIsOpen(!isOpen)} className="p-2 text-foreground">
@@ -91,7 +112,7 @@ const Navbar = () => {
 
       {isOpen && (
         <div className="md:hidden glass-card mt-2 mx-4 p-4 rounded-xl">
-          {navLinks.map((l) => (
+          {t.nav.links.map((l) => (
             <a
               key={l.link}
               href={`#${l.link.toLowerCase()}`}
@@ -102,8 +123,7 @@ const Navbar = () => {
             </a>
           ))}
 
-          <a href="tel:+998878882244" className="glow-button block text-center mt-3 text-sm">+998 87 888 22 44</a>
-
+          <a href="tel:+998878882244" className="glow-button block text-center mt-3 text-sm">{t.nav.phone}</a>
         </div>
       )}
     </nav>
