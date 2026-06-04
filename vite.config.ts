@@ -93,7 +93,7 @@ const telegramLeadPlugin = (): Plugin => ({
 });
 
 export default defineConfig({
-  base: "./",
+  base: "/",
 
   server: {
     host: true,

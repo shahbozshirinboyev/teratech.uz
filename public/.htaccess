@@ -1,0 +1,29 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # HTTPS ga majburiy yo'naltirish (Google Ads HTTPS talab qiladi)
+  RewriteCond %{HTTPS} off
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # Mavjud fayl yoki papka bo'lsa — to'g'ridan-to'g'ri beriladi
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # API/PHP endpointlari SPA fallback'ga tushmasin
+  RewriteRule ^send-lead\.php$ - [L]
+
+  # Qolgan barcha so'rovlar SPA index.html ga (React Router boshqaradi)
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+# Oddiy keshlash (statik aktivlar uchun)
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+</IfModule>

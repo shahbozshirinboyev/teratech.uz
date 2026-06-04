@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { Menu, X, Moon, Sun, Languages } from "lucide-react";
+import { Menu, X, Moon, Sun } from "lucide-react";
+import { Link } from "react-router-dom";
 import { useLanguage } from "@/i18n/LanguageContext";
 
 const Navbar = () => {
-  const { t, lang, setLang, languages } = useLanguage();
+  const { t, lang, setLang, languages, path } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isDark, setIsDark] = useState(true);
@@ -37,14 +38,19 @@ const Navbar = () => {
     }
   };
 
-  // Ro'yxatdagi keyingi tilga aylanib o'tadi (2 tildan ko'p bo'lsa ham ishlaydi)
-  const cycleLang = () => {
+  // Ro'yxatdagi keyingi til (toggle bosilganda shunga o'tadi)
+  const nextLang = (() => {
     const idx = languages.findIndex((l) => l.code === lang);
-    const next = languages[(idx + 1) % languages.length];
-    setLang(next.code);
-  };
+    return languages[(idx + 1) % languages.length];
+  })();
 
-  const currentLabel = languages.find((l) => l.code === lang)?.label ?? lang.toUpperCase();
+  const cycleLang = () => setLang(nextLang.code);
+
+  // Tugmada o'tiladigan tilning yorlig'i ko'rinadi (uz'da "RU", ru'da "UZ")
+  const nextLabel = nextLang.label;
+
+  // Bo'lim havolalari bosh sahifaga ishora qiladi (boshqa sahifada bo'lsak ham ishlaydi)
+  const sectionHref = (section: string) => `${path("home")}#${section.toLowerCase()}`;
 
   return (
     <nav
@@ -53,16 +59,16 @@ const Navbar = () => {
       }`}
     >
       <div className="container mx-auto flex items-center justify-between px-4">
-        <a href="#" className="text-xl font-bold glow-text">
+        <Link to={path("home")} className="text-xl font-bold glow-text">
           TeraTech
-        </a>
+        </Link>
 
         {/* Desktop */}
         <div className="hidden md:flex items-center gap-6">
           {t.nav.links.map((l) => (
             <a
               key={l.link}
-              href={`#${l.link.toLowerCase()}`}
+              href={sectionHref(l.link)}
               className="text-sm hover:text-primary transition-colors"
             >
               {l.name}
@@ -73,11 +79,10 @@ const Navbar = () => {
         <div className="hidden md:flex items-center gap-3">
           <button
             onClick={cycleLang}
-            className="flex items-center gap-1.5 p-2 rounded-lg hover:text-primary transition-colors"
+            className="px-3 py-2 rounded-lg text-sm font-semibold border border-primary/30 hover:bg-primary/10 hover:text-primary transition-colors"
             aria-label="Til / Язык"
           >
-            <Languages size={18} />
-            <span className="text-sm font-semibold">{currentLabel}</span>
+            {nextLabel}
           </button>
 
           <button
@@ -92,20 +97,27 @@ const Navbar = () => {
         </div>
 
         {/* Mobile */}
-        <div className="flex md:hidden items-center gap-2">
+        <div className="flex md:hidden items-center gap-1.5">
           <button
             onClick={cycleLang}
-            className="flex items-center gap-1 p-2 text-muted-foreground"
+            className="h-9 w-9 flex items-center justify-center rounded-lg text-sm font-bold text-foreground hover:bg-primary/10 hover:text-primary transition-colors"
             aria-label="Til / Язык"
           >
-            <Languages size={18} />
-            <span className="text-xs font-semibold">{currentLabel}</span>
+            {nextLabel}
           </button>
-          <button onClick={toggleTheme} className="p-2 text-muted-foreground" aria-label="Theme">
+          <button
+            onClick={toggleTheme}
+            className="h-9 w-9 flex items-center justify-center rounded-lg text-foreground hover:bg-primary/10 hover:text-primary transition-colors"
+            aria-label="Theme"
+          >
             {isDark ? <Sun size={18} /> : <Moon size={18} />}
           </button>
-          <button onClick={() => setIsOpen(!isOpen)} className="p-2 text-foreground">
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="h-9 w-9 flex items-center justify-center rounded-lg text-foreground hover:bg-primary/10 transition-colors"
+            aria-label="Menu"
+          >
+            {isOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
       </div>
@@ -115,7 +127,7 @@ const Navbar = () => {
           {t.nav.links.map((l) => (
             <a
               key={l.link}
-              href={`#${l.link.toLowerCase()}`}
+              href={sectionHref(l.link)}
               onClick={() => setIsOpen(false)}
               className="block py-2 text-muted-foreground hover:text-primary transition-colors"
             >
