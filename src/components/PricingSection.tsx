@@ -30,11 +30,11 @@ const PricingSection = ({ onOpenModal }: PricingSectionPage) => {
           {t.pricing.headingPrefix}
           <span className="glow-text">{t.pricing.headingHighlight}</span>
         </h2>
-        <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-4 max-w-6xl mx-auto">
           {plans.map((p) => (
             <div
               key={p.name}
-              className={`glass-card-hover p-8 flex flex-col relative ${
+              className={`glass-card-hover p-7 flex flex-col relative ${
                 p.popular ? "border-primary/50 ring-1 ring-primary/30" : ""
               }`}
             >
