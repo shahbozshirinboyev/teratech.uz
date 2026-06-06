@@ -34,7 +34,7 @@ const PricingSection = ({ onOpenModal }: PricingSectionPage) => {
           {plans.map((p) => (
             <div
               key={p.name}
-              className={`glass-card-hover p-7 flex flex-col relative ${
+              className={`glass-card-hover p-8 flex flex-col relative ${
                 p.popular ? "border-primary/50 ring-1 ring-primary/30" : ""
               }`}
             >
