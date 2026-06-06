@@ -62,17 +62,17 @@ const ru: Dictionary = {
       {
         name: "Бюджетный",
         price: "2 115 000 сум",
-        features: ["CPU: i3-2th", "RAM: 4GB DDR3", "Память: SSD 120GB"],
+        features: ["Дисплей: 24\" IPS FullHD", "Процессор: i3-2го поколения", "Оперативная память: 4GB DDR3", "Память: SSD 120GB"],
       },
       {
         name: "Стандарт",
         price: "2 499 000 сум",
-        features: ["CPU: i5-2th", "RAM: 8GB DDR3", "Память: SSD 240GB"],
+        features: ["Дисплей: 24\" IPS FullHD", "Процессор: i5-2го поколения", "Оперативная память: 8GB DDR3", "Память: SSD 256GB"],
       },
       {
         name: "Оптимальный",
         price: "3 400 000 сум",
-        features: ["CPU: i7-2th", "RAM: 16GB DDR3", "Память: SSD 512GB"],
+        features: ["Дисплей: 24\" IPS FullHD", "Процессор: i5-2го поколения", "Оперативная память: 16GB DDR3", "Память: SSD 512GB"],
       },
     ],
   },

@@ -64,17 +64,17 @@ const uz: Dictionary = {
       {
         name: "Arzon",
         price: "2 115 000 so'm",
-        features: ["CPU: i3-2th", "RAM: 4GB DDR3", "Xotira: SSD 120GB"],
+        features: ["Displey: 24\" IPS FullHD", "Protsessor: i3-2chi avlod", "Tezkor xotira: 4GB DDR3", "Doimiy xotira: SSD 120GB"],
       },
       {
         name: "Standart",
         price: "2 499 000 so'm",
-        features: ["CPU: i5-2th", "RAM: 8GB DDR3", "Xotira: SSD 240GB"],
+        features: ["Displey: 24\" IPS FullHD", "Protsessor: i5-2chi avlod", "Tezkor xotira: 8GB DDR3", "Doimiy xotira: SSD 256GB"],
       },
       {
         name: "Optimal",
         price: "3 400 000 so'm",
-        features: ["CPU: i7-2th", "RAM: 16GB DDR3", "Xotira: SSD 512GB"],
+        features: ["Displey: 24\" IPS FullHD", "Protsessor: i7-2chi avlod", "Tezkor xotira: 16GB DDR3", "Doimiy xotira: SSD 512GB"],
       },
     ],
   },
